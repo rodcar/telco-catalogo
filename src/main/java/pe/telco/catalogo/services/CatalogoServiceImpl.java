@@ -16,13 +16,13 @@ import reactor.core.publisher.Mono;
 public class CatalogoServiceImpl implements CatalogoService {
 
 	@Autowired
-	private WebClient webClient;
+	private WebClient.Builder webClientBuilder;
 
 	@Override
 	public List<CatalogoItem> fetchAllItems() throws Exception {
 		List<CatalogoItem> items = new ArrayList<>();
 
-		Mono<List<PaqueteResponse>> response = webClient.get().uri("http://localhost:7000/paquetes").retrieve()
+		Mono<List<PaqueteResponse>> response = webClientBuilder.build().get().uri("http://paquetes/paquetes").retrieve()
 				.bodyToMono(new ParameterizedTypeReference<List<PaqueteResponse>>() {
 				});
 
