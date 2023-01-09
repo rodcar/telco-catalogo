@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.telco.catalogo.messages.responses.CatalogoItem;
@@ -20,9 +21,14 @@ public class CatalogoController {
 	private CatalogoService catalogoService;
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<CatalogoItem>> fetchAllItems() {
+	public ResponseEntity<List<CatalogoItem>> fetchAllItems(@RequestParam(required = false) String categoria) {
 		try {
-			List<CatalogoItem> items = catalogoService.fetchAllItems();
+			List<CatalogoItem> items;
+			if (categoria != null) {
+				items = catalogoService.fetchByCategoria(categoria);
+			} else {
+				items = catalogoService.fetchAllItems();
+			}
 			return (items.isEmpty()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(items);
 		} catch (Exception e) {
 			e.printStackTrace();
