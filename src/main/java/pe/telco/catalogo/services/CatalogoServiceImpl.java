@@ -39,7 +39,8 @@ public class CatalogoServiceImpl implements CatalogoService {
 
 		for (PaqueteResponse paquete : paquetes) {
 			items.add(CatalogoItem.builder().id(paquete.getId().toString()).nombre(paquete.getNombre())
-					.descripcion(paquete.getDescripcion()).precio(paquete.getPrecio()).categoria("redes").build());
+					.descripcion(paquete.getDescripcion()).imagen(paquete.getImagen()).precio(paquete.getPrecio())
+					.categoria("redes").build());
 		}
 
 		Mono<List<PaqueteInternetResponse>> internetPaqueteResponse = webClientBuilder.build().get()
@@ -50,7 +51,8 @@ public class CatalogoServiceImpl implements CatalogoService {
 		List<PaqueteInternetResponse> paquetesInternet = internetPaqueteResponse.block();
 		for (PaqueteInternetResponse paquete : paquetesInternet) {
 			items.add(CatalogoItem.builder().id(paquete.getId()).nombre(paquete.getNombre())
-					.descripcion(paquete.getDescripcion()).precio(paquete.getPrecio()).categoria("internet").build());
+					.descripcion(paquete.getDescripcion()).imagen(paquete.getImagen()).precio(paquete.getPrecio())
+					.categoria("internet").build());
 		}
 
 		return items;
@@ -76,7 +78,8 @@ public class CatalogoServiceImpl implements CatalogoService {
 
 			for (PaqueteResponse paquete : paquetes) {
 				items.add(CatalogoItem.builder().id(paquete.getId().toString()).nombre(paquete.getNombre())
-						.descripcion(paquete.getDescripcion()).precio(paquete.getPrecio()).categoria("redes").build());
+						.descripcion(paquete.getDescripcion()).imagen(paquete.getImagen()).precio(paquete.getPrecio())
+						.categoria("redes").build());
 			}
 			break;
 		case "internet":
@@ -88,8 +91,8 @@ public class CatalogoServiceImpl implements CatalogoService {
 			List<PaqueteInternetResponse> paquetesInternet = internetPaqueteResponse.block();
 			for (PaqueteInternetResponse paquete : paquetesInternet) {
 				items.add(CatalogoItem.builder().id(paquete.getId()).nombre(paquete.getNombre())
-						.descripcion(paquete.getDescripcion()).precio(paquete.getPrecio()).categoria("internet")
-						.build());
+						.descripcion(paquete.getDescripcion()).imagen(paquete.getImagen()).precio(paquete.getPrecio())
+						.categoria("internet").build());
 			}
 			break;
 		default:
