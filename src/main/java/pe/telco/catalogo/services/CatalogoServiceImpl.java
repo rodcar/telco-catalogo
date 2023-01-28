@@ -64,14 +64,8 @@ public class CatalogoServiceImpl implements CatalogoService {
 
 		switch (categoria) {
 		case "redes":
-			Mono<List<PaqueteResponse>> redSocialPaqueteResponse = catalogoCircuitBreaker
-					.run(webClientBuilder.build().get().uri("http://paquetes/paquetes").retrieve()
+			Mono<List<PaqueteResponse>> redSocialPaqueteResponse = webClientBuilder.build().get().uri("http://paquetes/paquetes").retrieve()
 							.bodyToMono(new ParameterizedTypeReference<List<PaqueteResponse>>() {
-							}), throwable -> {
-								List<PaqueteResponse> predeterminada = new ArrayList<>();
-								// TODO Agregar paquetes predeterminados
-								// TODO Retornar una Excepción personaliza
-								return Mono.just(predeterminada);
 							});
 
 			List<PaqueteResponse> paquetes = redSocialPaqueteResponse.block();
